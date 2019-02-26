@@ -1,13 +1,19 @@
 'use strict'
 
-const request = require('request')
+const net = require('net');
+const client = new net.Socket();
+const port = 8080;
+const host = '127.0.0.1';
 
 /*
 *  This function will be called for each event.  (eg: for each sensor reading)
 *  Modify it as needed.
 */
-module.exports = function(eventMsg, encoding, callback) {
-  request.post('http://localhost:8080/event', {json: true, body: eventMsg}, (err, res, body) => {
-    callback(err)
+module.exports = (eventMsg, encoding, callback) => {
+  client.connect(port, host, () => {
+    client.write(JSON.stringify(eventMsg), (err) => {
+      client.destroy()
+      callback(err)
+    })
   })
 }
