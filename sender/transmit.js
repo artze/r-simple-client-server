@@ -60,3 +60,8 @@ module.exports = (eventMsg, encoding, callback) => {
   }
   callback()
 }
+
+module.exports.testHelpers = {
+  client,
+  generateMsgString
+}
