@@ -1,3 +1,14 @@
+# Submission Notes
+
+## Project Related
+- Test suite dependencies are included as `devDependencies`
+- Test passes with `test.sh`
+
+## Design Related
+- It is assumed that sensor measurement events are fired as and when needed without backlog/caching mechanism. `transmit` module is designed to 'fire-and-forget' and invokes callback immediately to transfer control back to caller of `transmit` module.
+- `async` library is used to prevent too much callback nesting or 'callback hell'.
+- TCP connection is utilized in place of HTTP POSTs to reduce overhead by eliminating unnecessary elements in the request such as Request Headers
+- `transmit` module is designed to collect event messages and makes a TCP transmission at 2-second intervals to reduce overhead of establishing and closing a TCP connection at *each* event message.
 
 # Backend Developer Job Applicant Test - Node.js
 
